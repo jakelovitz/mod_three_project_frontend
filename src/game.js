@@ -1,10 +1,46 @@
-const game  = new Phaser.game(800, 600, Phaser.AUTO, '' {
-preload: preload,
-create: create,
-update: update
+var config = {
+        type: Phaser.AUTO,
+        width: 800,
+        height: 600,
+        physics: {
+            default: 'arcade',
+            arcade: {
+                gravity: { y: 200 }
+            }
+        },
+        scene: {
+            preload: preload,
+            create: create
+        }
+    };
 
-})
+    var game = new Phaser.Game(config);
 
-function preload () {}
-function create () {}
-function update () {}
+    function preload ()
+    {
+
+        this.load.image('sky', 'src/assets/sky.png');
+        this.load.image('star', 'src/assets/star.png');
+        this.load.image('red', 'assets/particles/red.png');
+    }
+
+    function create ()
+    {
+        this.add.image(400, 300, 'skyzzz');
+
+        var particles = this.add.particles('red');
+
+        var emitter = particles.createEmitter({
+            speed: 100,
+            scale: { start: 1, end: 0 },
+            blendMode: 'ADD'
+        });
+
+        var logo = this.physics.add.image(400, 100, 'star');
+
+        logo.setVelocity(100, 200);
+        logo.setBounce(1, 1);
+        logo.setCollideWorldBounds(true);
+
+        emitter.startFollow(logo);
+    }
