@@ -26,43 +26,39 @@ function getWounds(){
   function woundGen(){
   person = personsArr[Math.floor(Math.random() * personsArr.length)]
   wound  = person.wounds[Math.floor(Math.random() * person.wounds.length)]
+  woundPic =  wound.img_url
+
 
 
   switch("right arm"){
     case "left arm":
       injury = document.querySelector("#leftArm")
       buildWound(wound, injury)
-      woundPic =  wound.img_url
       setWoundPic(woundPic)
       break;
     case "right arm":
       injury = document.querySelector("#rightArm")
       buildWound(wound, injury)
-      woundPic =  wound.img_url
       setWoundPic(woundPic)
       break;
     case "left leg":
       injury = document.querySelector("#leftLeg")
       buildWound(wound, injury)
-      woundPic =  wound.img_url
       setWoundPic(woundPic)
       break;
     case "right leg":
       injury = document.querySelector("#rightLeg")
       buildWound(wound, injury)
-      woundPic =  wound.img_url
       setWoundPic(woundPic)
       break;
     case "body":
       injury = document.querySelector("#body")
       buildWound(wound, injury)
-      woundPic =  wound.img_url
       setWoundPic(woundPic)
       break;
     case "head":
       injury = document.querySelector("#head")
       buildWound(wound, injury)
-      woundPic =  wound.img_url
       setWoundPic(woundPic)
       break;
     }
