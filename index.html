@@ -1,13 +1,25 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <script src="https://cdn.jsdelivr.net/npm/phaser@3.15.1/dist/phaser-arcade-physics.min.js"></script>
-</head>
-<body>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="stylesheet" href="./assets/style/style.css">
+    <meta charset="utf-8">
+    <title>stop the bleeding, start the breathing</title>
+   </head>
+   <body>
+    <center>
+      <button  id="start">Generate a Wound</button>
+      <br>
+      <div class="wound" id="rightArm"  style="display:none" > Right Arm</div>
+      <div id="leftArm">  left arm  </div>
+      <div id="rightLeg">   </div>
+      <div id="leftLeg">   </div>
+      <div id="body">   </div>
+        <div id="head">   </div>
+      <div>
+      <img id="bodyPic" src="./assets/body.jpg" </img>
+      </div>
+      </center>
+      <script defer src="src/index.js"></script>
 
-    <script src="src/ship.js">
-    
-    </script>
-
-</body>
+  </body>
 </html>
