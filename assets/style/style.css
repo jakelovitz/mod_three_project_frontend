@@ -1,4 +1,4 @@
-#bodypartleftArm {
+/* #bodypartleftArm {
   position: absolute;
   bottom: 70%;
   right: 25%;
@@ -60,17 +60,8 @@
   padding: 4px;
   border-style: solid;
   border-color: black;
-}
-
-/* #answerbuttons {
-  background-color: #ffffff;
-  border: 1px solid #3e1313;
-
-  color: #3e1313;
-  padding: 10px;
-  text-align: center;
-  text-decoration: none;
-
-  font-size: 12px;
-  margin: 4px 2px;
 } */
+
+#c1, #c2, #c3 {
+  width: 33%
+}

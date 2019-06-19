@@ -28,8 +28,11 @@ document.addEventListener('DOMContentLoaded', () => {
     treatments = wound.treatments
     woundPic =  wound.img_url
     console.log(person)
+    console.log(wound )
+    console.log(treatments)
 
-    switch(wound.name){
+
+    switch(wound.location){
       case "left arm":
           injury = document.querySelector("#leftArm")
           buildWound(wound, injury)
@@ -66,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function setWoundPic(woundPic){
     document.querySelector("#backdrop").innerHTML =
     `
-      <img src=${woundPic} style="height: 500px"> </img>
+      <img class="center" src=${woundPic} style="height: 500px"> </img>
     `
   }
 
@@ -81,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
     woundDisplay.innerHTML =
       `
       <div>
-        <div id="bodypart${injury.id}">
+        <div class="left" id="bodypart${injury.id}">
           ${wound.name}!!
           <div id="quiz"></div>
           <button id="submit">Get Results</button>
@@ -120,51 +123,31 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function generateQuestions(){
-    // debugger
-    let questions = [
-      {
-        question: "What is the first step?",
-        answers: 
-        {
-          a: "Step 1",
-          b: "Step 2",
-          c: "Step 3",
-        },
-          correctAnswer: "b"
-      },
-        
-      {
-        question: "what is the second step?",
-        answers: 
-        {
-          a: "Step 1",
-          b: "Step 2",
-          c: "Step 3",
-        },
-        correctAnswer: "a"
-      },
-        
-      {
-        question: "what is the third step?",
-        answers:
-        {
-          a: "Step 1",
-          b: "Step 2",
-          c: "Step 3",
-        },
-        correctAnswer: "c",
-      },
-    ]
-    return questions
-  }
-
   function getAnswers(treatments) {
     let answers = {};
     for (var i = 0; i < treatments.length; i++) {
       answers[String.fromCharCode(97 + i)] = `${treatments[i].action}`
     };
     return answers
+  }
+
+  function shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+  
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+  
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+  
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+  
+    return array;
   }
 
   function dynamicGenerateQuestions(treatments) {
@@ -175,11 +158,11 @@ document.addEventListener('DOMContentLoaded', () => {
       question =  {
         question: `What is step ${i + 1}?`,
         answers,
-        correctAnswer: `${String.fromCharCode(97 + treatments[i].order)}`
+        correctAnswer: `${String.fromCharCode(97 + (treatments[i].order) - 1)}`
       }
       questions.push(question)
     }
-    return questions
+    return shuffle(questions)
   }
 
   function showQuestions(questions, quizContainer){
@@ -223,6 +206,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     resultsContainer.innerHTML = numCorrect + ' out of ' + questions.length;
   }
+
+
 
 
 
