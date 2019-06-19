@@ -23,11 +23,15 @@ function getWounds(){
   })
 
 function woundGen(){
+
   person = personsArr[Math.floor(Math.random() * personsArr.length)]
   wound  = person.wounds[Math.floor(Math.random() * person.wounds.length)]
+    // person = personsArr[1]
+    // wound = person.wounds[1]
+    debugger
+
   woundPic =  wound.img_url
   console.log(person)
-
 switch(wound.name){
   case "left arm":
       injury = document.querySelector("#leftArm")
@@ -79,6 +83,17 @@ function buildWound(wound, injury){
  <div>
    <div id="bodypart${injury.id}">
    ${wound.name}
+
+
+   asdfhasdiufhadisfhjads
+   <p>
+   asudhfyuasdhfijdsa
+   <p>
+
+   asudfhasudfhiuasdj
+
+
+   ashfyasdhufadsuasdhi;iladsbfg
    </div>
  </div>
  `
@@ -110,22 +125,34 @@ function buildWound(wound, injury){
 
 
 
+//
+// person = personsArr[Math.floor(Math.random() * personsArr.length)]
+// wound  = person.wounds[Math.floor(Math.random() * person.wounds.length)]
+// quizCorSteps = wound.treatments
+// quizCorSteps = [{action: "set arm", order: 3}, {action: "clean wound", step: 1}, {action: "prepare splint", step: 2}]
+//
+//
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+//
+// wrongArr = []
+//
+//
+// Wound.all.mamp
+//
+// }}
+//
+//
+// button
+//
+// button 1 = wrongArr[Math.floor(Math.random() * wrongArr.length)]
+// button 2 = wrongArr[Math.floor(Math.random() * wrongArr.length)]
+// button 3 = wrongArr[Math.floor(Math.random() * wrongArr.length)]
+// button 4 =
+//
 
 
 
