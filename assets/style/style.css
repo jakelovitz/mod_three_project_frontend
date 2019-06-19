@@ -1,43 +1,65 @@
 #bodypartleftArm {
   position: absolute;
-  bottom: 425px;
-  right: 150px;
+  bottom: 70%;
+  right: 25%;
   z-index: 10040;
+  box-shadow: 0px 0px 50px red;
+  border-style: solid;
+  border-color: black;
 }
 
 #bodypartrightArm {
   position: absolute;
-  bottom: 425px;
-  right: 600px;
+  bottom: 70%;
+  right: 75%;
   z-index: 10040;
+  box-shadow: 0px 0px 50px red;
+  border-style: solid;
+  border-color: black;
 }
 
 #bodypartleftLeg {
   position: absolute;
-  bottom: 250px;
-  right: 175px;
+  bottom: 40%;
+  right: 25%;
   z-index: 10040;
+  box-shadow: 0px 0px 50px red;
+  padding: 4px;
+  border-style: solid;
+  border-color: black;
 }
 
 #bodypartrightLeg {
   position: absolute;
-  bottom: 250px;
-  right: 550px;
+  bottom: 40%;
+  right: 75%;
   z-index: 10040;
+  box-shadow: 0px 0px 50px red;
+  padding: 4px;
+  border-style: solid;
+  border-color: black;
 }
 
 #bodypartbody {
   position: absolute;
-  bottom: 550px;
-  right: 650px;
+  bottom: 85%;
+  right: 75%;
   z-index: 10040;
+  box-shadow: 0px 0px 50px red;
+  padding: 4px;
+  border-style: solid;
+  border-color: black;
 }
 
 #bodyparthead {
   position: absolute;
-  bottom: 550px;
-  right: 175px;
-  z-index: 10040
+  bottom: 85%;
+  right: 25%;
+  z-index: 10040;
+  box-shadow: 0px 0px 50px red;
+  padding: 4px;
+  border-style: solid;
+  border-color: black;
 }
 
 /* #answerbuttons {

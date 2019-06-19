@@ -19,12 +19,13 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelector("#start").addEventListener("click", e => {
     e.target.style.display = "none"
 
-    woundGen()
+    woundGen() // this is what triggers the actual quiz bit
   })
 
   function woundGen(){
     person = personsArr[Math.floor(Math.random() * personsArr.length)]
     wound  = person.wounds[Math.floor(Math.random() * person.wounds.length)]
+    treatments = wound.treatments
     woundPic =  wound.img_url
     console.log(person)
 
@@ -69,6 +70,10 @@ document.addEventListener('DOMContentLoaded', () => {
     `
   }
 
+  function woundDescription(wound) {
+    
+  }
+
 
   function buildWound(wound, injury){
     injury.style.display = "block"
@@ -78,8 +83,8 @@ document.addEventListener('DOMContentLoaded', () => {
       <div>
         <div id="bodypart${injury.id}">
           ${wound.name}!!
-          <div id="quiz"></din>
-          <button id="submit">ButtonText</button>
+          <div id="quiz"></div>
+          <button id="submit">Get Results</button>
           <div id="results"></div>
         </div>
       </div>
@@ -92,71 +97,23 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById("generateForm").onclick = function() {
       woundDisplay.style.display = "block";
     }
-
-    checkAnswers(injury.id)
+    let quizContainer = document.getElementById('quiz')
+    let resultsContainer = document.getElementById('results')
+    let submitButton = document.getElementById('submit')
+    generateQuiz(quizContainer, resultsContainer, submitButton)
   }
 
-  function checkAnswers(injury) {
-    
-    let buttonsBar = document.getElementById(`bodypart${injury}`)
 
-    
-    storedResponses = []
-    
-    buttonsBar.addEventListener('click', (e) => {
-      const allowedList = ['response1', 'response2', 'response3', 'response4'] // we need to store this answer list somewhere
-
-      const button = event.target.id
-
-      // debugger
-
-      //code to see if the user clicked one of the buttons. May not be necessary
-      // if (allowedList.includes(button)) { console.log ('a');} else {
-      //   return checkAnswers(injury)
-      // }
-
-      if (button === allowedList[0]) {
-        document.alert('Correct!');
-      }
-    })
-
-
-  }
+  
 
   function generateQuiz(quizContainer, resultsContainer, submitButton){
-
-    let questions = generateQuestions();
-
-    function showQuestions(questions, quizContainer){
-      let output = [];
-      let answers;
-
-      for(var i = 0, i < questions.length, i++){
-        answers = [];
-        for(letter in questions[i].answers){
-          answers.push(
-            '<label>'
-              + '<input type="radio" name="question'+i+'" value="'+letter+'">'
-              + letter + ': '
-              + questions[i].answers[letter]
-            + '</label>'
-          );
-        }
-        output.push(
-          '<div class="question">' + questions[i].question + '</div>'
-          + '<div class="answers">' + answers.join('') + '</div>'
-        )
-        quizContainer.innerHTML = output.join('')
-      }
-    }
-  
-    function showResults(questions, quizContainer, resultsContainer){
-      // code will go here
-    }
+    // debugger
+    //get questions list
+    var questions = dynamicGenerateQuestions(treatments);
   
     // show the questions
     showQuestions(questions, quizContainer);
-  
+
     // when user clicks submit, show results
     submitButton.onclick = function(){
       showResults(questions, quizContainer, resultsContainer);
@@ -164,48 +121,108 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function generateQuestions(){
+    // debugger
     let questions = [
       {
         question: "What is the first step?",
-        answers: {
+        answers: 
+        {
           a: "Step 1",
           b: "Step 2",
-          c: "Step 3"
-        }
-        correctAnswer: "B"
-      }
-
+          c: "Step 3",
+        },
+          correctAnswer: "b"
+      },
+        
       {
         question: "what is the second step?",
-        answers: {
+        answers: 
+        {
           a: "Step 1",
           b: "Step 2",
-          c: "Step 3"
-        }
-        correctAnswer: "A"
-      }
-
+          c: "Step 3",
+        },
+        correctAnswer: "a"
+      },
+        
       {
         question: "what is the third step?",
-        answers: {
+        answers:
+        {
           a: "Step 1",
           b: "Step 2",
-          c: "Step 3"
-        }
-        correctAnswer: "C"
-      }
+          c: "Step 3",
+        },
+        correctAnswer: "c",
+      },
     ]
     return questions
   }
 
+  function getAnswers(treatments) {
+    let answers = {};
+    for (var i = 0; i < treatments.length; i++) {
+      answers[String.fromCharCode(97 + i)] = `${treatments[i].action}`
+    };
+    return answers
+  }
 
+  function dynamicGenerateQuestions(treatments) {
+    questions = []
+    answers = getAnswers(treatments)
+    for (var i = 0; i < treatments.length; i++) {
 
+      question =  {
+        question: `What is step ${i + 1}?`,
+        answers,
+        correctAnswer: `${String.fromCharCode(97 + treatments[i].order)}`
+      }
+      questions.push(question)
+    }
+    return questions
+  }
 
+  function showQuestions(questions, quizContainer){
+    let output = [];
+    let answers;
 
+    for (var i = 0; i < questions.length; i++) {
+      answers = [];
 
+      for(letter in questions[i].answers){
+      answers.push(
+          '<label>'
+          + '<input type="radio" name="question'+i+'" value="'+letter+'">'
+          + letter + ': '
+          + questions[i].answers[letter]
+          + '</label>'
+      );
+      }
+      output.push(
+      '<div class="question">' + questions[i].question + '</div>'
+      + '<div class="answers">' + answers.join('') + '</div>'
+      )
+      quizContainer.innerHTML = output.join('')
+    }
+  }
 
+  function showResults (questions, quizContainer, resultsContainer) {
+    let answerContainers = quizContainer.querySelectorAll('.answers');
 
+    let userAnswer = '';
+    let numCorrect = 0
 
+    for (var i = 0; i < questions.length; i++) {
+      userAnswer = (answerContainers[i].querySelector('input[name=question'+i+']:checked')||{}).value;
+      if (userAnswer === questions[i].correctAnswer){
+          numCorrect++;
+          answerContainers[i].style.color = 'green';
+      } else {
+          answerContainers[i].style.color = 'red'
+      }
+    }
+    resultsContainer.innerHTML = numCorrect + ' out of ' + questions.length;
+  }
 
 
 
