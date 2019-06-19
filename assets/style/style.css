@@ -1,5 +1,41 @@
-#rightarm {
+#bodypartleftArm {
   position: absolute;
-  right: 20px;
-  bottom: 100px;
+  bottom: 425px;
+  right: 150px;
+  z-index: 10040;
+}
+
+#bodypartrightArm {
+  position: absolute;
+  bottom: 425px;
+  right: 600px;
+  z-index: 10040;
+}
+
+#bodypartleftLeg {
+  position: absolute;
+  bottom: 250px;
+  right: 175px;
+  z-index: 10040;
+}
+
+#bodypartrightLeg {
+  position: absolute;
+  bottom: 250px;
+  right: 550px;
+  z-index: 10040;
+}
+
+#bodypartbody {
+  position: absolute;
+  bottom: 550px;
+  right: 650px;
+  z-index: 10040;
+}
+
+#bodyparthead {
+  position: absolute;
+  bottom: 550px;
+  right: 175px;
+  z-index: 10040
 }
