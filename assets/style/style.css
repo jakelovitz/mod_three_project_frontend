@@ -1,4 +1,4 @@
-#bodypartleftArm {
+/* #bodypartleftArm {
   position: absolute;
   bottom: 70%;
   right: 25%;
@@ -60,4 +60,8 @@
   padding: 4px;
   border-style: solid;
   border-color: black;
+} */
+
+#c1, #c2, #c3 {
+  width: 33%
 }
