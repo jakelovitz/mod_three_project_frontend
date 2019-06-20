@@ -150,7 +150,8 @@ function moveBody(){
 }
 
 function moveInjury(){
-  injury.style = "position:absolute;right: 35%;height: 125px; width: 125px;"
+  injury.querySelector(`#bodypart${injury.id}`).style = "position:absolute;top:2%;right: 35%;height: auto; width: 150px;"
+
 
 }
 
