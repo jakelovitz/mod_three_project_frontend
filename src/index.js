@@ -246,7 +246,7 @@ function nextQuiz() {
 
   button.addEventListener('click', (e) => {
     console.log('new button clicked')
-    createQuiz()
+    woundGen()
   })
   
 }
