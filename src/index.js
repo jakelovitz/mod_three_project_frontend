@@ -157,10 +157,18 @@ document.addEventListener('DOMContentLoaded', () => {
     quizCreate.style="display:none"
       setPageWithQuiz()
     })
-
-  }
-
+  createQuiz()
+}
   
+
+function moveBody(){
+  bodyPic.children[0].style.right = "10%"
+}
+
+function moveInjury(){
+  injury.querySelector(`#bodypart${injury.id}`).style = "position:absolute;top:2%;right: 35%;height: auto; width: 150px;"
+
+}  
 
   function setPageWithQuiz(){
     // debugger
