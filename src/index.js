@@ -103,7 +103,7 @@ function displayWound(wound, injury){
 function createQuiz(){
   let quizContainer = document.getElementById('quiz')
   let resultsContainer = document.getElementById('results')
-  let submitAnswersButton = document.getElementById('submit')
+  let submitAnswersButton = document.getElementById('createQuizsubmit')
   generateQuiz(quizContainer, resultsContainer, submitAnswersButton)
 }
 
@@ -119,13 +119,14 @@ submitAnswersButton.onclick = function(){
 }
 }
 
-function getAnswers(treatments) {
-let answers = {};
-  for (var i = 0; i < treatments.length; i++) {
-    answers[String.fromCharCode(97 + i)] = `${treatments[i].action}`
-  };
-return answers
-}
+// function getAnswers(treatments) {
+// let answers = {};
+//   for (var i = 0; i < treatments.length; i++) {
+//     answers[String.fromCharCode(97 + i)] = `${treatments[i].action}`
+//   };
+// return answers
+// }
+
 function shuffle(array) {
 var currentIndex = array.length, temporaryValue, randomIndex;
 // While there remain elements to shuffle...
@@ -142,6 +143,16 @@ var currentIndex = array.length, temporaryValue, randomIndex;
 return array;
 }
 
+function getAnswers(treatments) {
+  let answers = {};
+  let shuffledTreatments = shuffle(treatments)
+
+  for (var i = 0; i < treatments.length; i++) {
+    answers[String.fromCharCode(97 + i)] = `${shuffledTreatments[i].action}`
+  };
+  return answers
+}
+
 function dynamicGenerateQuestions(treatments) {
 questions = []
 answers = getAnswers(treatments)
@@ -153,7 +164,7 @@ answers = getAnswers(treatments)
     }
     questions.push(question)
   }
-return shuffle(questions)
+return questions
 }
 
 function showQuestions(questions, quizContainer){
@@ -217,3 +228,5 @@ resultsContainer.innerHTML = numCorrect + ' out of ' + questions.length;
 
 
 });
+
+
