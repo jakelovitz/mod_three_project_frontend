@@ -49,8 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     wound = newWound[0]
     treatments = wound.treatments
     woundPic =  wound.img_url
-    
-    console.log('woundGen 53:', wound.location)
+
 
 
     switch(wound.location){
@@ -96,29 +95,29 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  function setWoundPic(woundPic){
-  bodyPic = document.querySelector("#backdrop")
 
+  function setWoundPic(woundPic){
+
+  bodyPic = document.querySelector("#backdrop")
     bodyPic.innerHTML = `
       <img src=${woundPic} style="
       height: 500px;
-      position: absolute;
-      right: 40%;
     "</img>
     `
   }
 
-  
 
   function displayWound(wound){
     injury.style.display = "block"
     woundDisplay = document.createElement('div')
     const outerDiv = document.createElement('div')
     woundDisplay.appendChild(outerDiv)
-    
+
     const bodyPartDiv = document.createElement('div')
     bodyPartDiv.id = `bodypart${injury.id}`
-    bodyPartDiv.innerText = wound.name
+    bodyPartDiv.innerText = `${wound.name}
+     --------------------
+    ${wound.description}`
     const br1 = document.createElement('br')
     const br2 = document.createElement('br')
     const quizCreate = document.createElement('button')
@@ -128,26 +127,16 @@ document.addEventListener('DOMContentLoaded', () => {
     bodyPartDiv.appendChild(quizCreate)
 
     woundDisplay.appendChild(bodyPartDiv)
-  
+
     injury.appendChild(woundDisplay)
-  
-    
+
     quizCreate.addEventListener('click', () =>{
     quizCreate.style="display:none"
       setPageWithQuiz()
     })
-  createQuiz()
-}
-  
 
-function moveBody(){
-  bodyPic.children[0].style.right = "10%"
-}
+  }
 
-function moveInjury(){
-  injury.querySelector(`#bodypart${injury.id}`).style = "position:absolute;top:2%;right: 35%;height: auto; width: 150px;"
-
-}  
 
   function setPageWithQuiz(){
     moveBody()
@@ -164,13 +153,16 @@ function moveInjury(){
   }
 
   function moveBody(){
-    bodyPic.children[0].style.right = "10%"
+    bodyPic.children[0].style = "position: fixed;height: 500px;top:55px;right:50px;z-index:500000"
   }
+
+
 
   function moveInjury(){
-    injury.style = "position:absolute;right: 35%;height: 125px; width: 125px;"
+    injury.querySelector(`#bodypart${injury.id}`).style = "top:2%;width:200px;right:383px;z-index:10040;"
 
   }
+
 
 
 
@@ -276,7 +268,7 @@ function moveInjury(){
   function nextQuiz() {
     let button = document.querySelector('#submitAnswers')
     button.innerText = 'Treat another wound'
-  
+
     let newWoundElement = person.wounds.indexOf(wound) + 1
     wound = person.wounds[newWoundElement]
 
