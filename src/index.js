@@ -1,3 +1,7 @@
+let quizContainer
+let resultsContainer
+let submitAnswersButton
+
 document.addEventListener('DOMContentLoaded', () => {
   console.log("%c Easy Day",
     "font-weight: bold; font-size: 50px;color: red; text-shadow: 3px 3px 0 rgb(217,31,38) , 6px 6px 0 rgb(226,91,14) , 9px 9px 0 rgb(245,221,8) , 12px 12px 0 rgb(5,148,68) , 15px 15px 0 rgb(2,135,206) , 18px 18px 0 rgb(4,77,145) , 21px 21px 0 rgb(42,21,113)");
@@ -5,7 +9,11 @@ document.addEventListener('DOMContentLoaded', () => {
 const dataURL = "http://localhost:3000/api/v1/people"
 const defaultPic = "https://i.imgur.com/USOQOCa.png"
 const medicCon = document.getElementById("medicCon")
+const quizCon = document.querySelector("#quizCon")
+
+
 let personsArr = []
+
 
 getWounds()
 
@@ -69,7 +77,7 @@ function woundGen(){
 }
 
 function setWoundPic(woundPic){
-  document.querySelector("#backdrop").innerHTML =
+document.querySelector("#backdrop").innerHTML =
   `
     <img class="center" src=${woundPic} style="height: 500px"> </img>
   `
@@ -87,69 +95,68 @@ function displayWound(wound, injury){
         <br>
         <br>
         ${wound.description}
-        <div id="quiz"></div>
         <button id="createQuizsubmit">Treat wound</button>
-        <div id="results"></div>
       </div>
     </div>
     `
   medicCon.appendChild(woundDisplay)
   document.querySelector("#createQuizsubmit").onclick = function(){
-  createQuiz()
+  document.querySelector("#createQuizsubmit").style="display:none"
+  setPageWithQuiz()
   }
+}
+
+function setPageWithQuiz(){
+  moveBody()
+  quizCon.innerHTML =
+  `
+  <div id="quiz"></div>
+  <button id="submitAnswers">Check Answer</button>
+  <div id="results"></div>
+  `
+
+  createQuiz()
+}
+
+function moveBody(){
+  console.log("animation to do tomorrow")
 }
 
 
 function createQuiz(){
-  let quizContainer = document.getElementById('quiz')
-  let resultsContainer = document.getElementById('results')
-  let submitAnswersButton = document.getElementById('createQuizsubmit')
-  generateQuiz(quizContainer, resultsContainer, submitAnswersButton)
+  quizContainer = document.getElementById('quiz')
+  resultsContainer = document.getElementById('results')
+  submitAnswersButton = document.getElementById('submitAnswers')
+  generateQuizQuestions()
 }
 
-function generateQuiz(quizContainer, resultsContainer, submitAnswersButton){
-// debugger
-//get questions list
-var questions = dynamicGenerateQuestions(treatments);
-// show the questions
-showQuestions(questions, quizContainer);
-// when user clicks submit, show results
-submitAnswersButton.onclick = function(){
-  showResults(questions, quizContainer, resultsContainer);
-}
+function generateQuizQuestions(){
+  let questions = dynamicGenerateQuestions(treatments);
+   showQuestions(questions);
+    submitAnswersButton.onclick = function(){
+    showResults(questions);
+  }
 }
 
-// function getAnswers(treatments) {
-// let answers = {};
-//   for (var i = 0; i < treatments.length; i++) {
-//     answers[String.fromCharCode(97 + i)] = `${treatments[i].action}`
-//   };
-// return answers
-// }
 
 function shuffle(array) {
 var currentIndex = array.length, temporaryValue, randomIndex;
-// While there remain elements to shuffle...
   while (0 !== currentIndex) {
-    // Pick a remaining element...
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex -= 1;
-    // And swap it with the current element.
     temporaryValue = array[currentIndex];
     array[currentIndex] = array[randomIndex];
     array[randomIndex] = temporaryValue;
   }
-
 return array;
 }
 
 function getAnswers(treatments) {
   let answers = {};
   let shuffledTreatments = shuffle(treatments)
-
-  for (var i = 0; i < treatments.length; i++) {
-    answers[String.fromCharCode(97 + i)] = `${shuffledTreatments[i].action}`
-  };
+    for (var i = 0; i < treatments.length; i++) {
+      answers[String.fromCharCode(97 + i)] = `${shuffledTreatments[i].action}`
+    };
   return answers
 }
 
@@ -167,7 +174,7 @@ answers = getAnswers(treatments)
 return questions
 }
 
-function showQuestions(questions, quizContainer){
+function showQuestions(questions){
 let output = [];
 let answers;
   for (var i = 0; i < questions.length; i++) {
@@ -189,21 +196,23 @@ let answers;
   }
 }
 
-function showResults (questions, quizContainer, resultsContainer) {
-let answerContainers = quizContainer.querySelectorAll('.answers');
-let userAnswer = '';
-let numCorrect = 0
-  for (var i = 0; i < questions.length; i++) {
-  userAnswer = (answerContainers[i].querySelector('input[name=question'+i+']:checked')||{}).value;
-    if (userAnswer === questions[i].correctAnswer){
-        numCorrect++;
-        answerContainers[i].style.color = 'green';
-    } else {
-        answerContainers[i].style.color = 'red'
-      }
-  }
-resultsContainer.innerHTML = numCorrect + ' out of ' + questions.length;
+function showResults (questions) {
+  let answerContainers = quizContainer.querySelectorAll('.answers');
+  let userAnswer = '';
+  let numCorrect = 0
+    for (var i = 0; i < questions.length; i++) {
+    userAnswer = (answerContainers[i].querySelector('input[name=question'+i+']:checked')||{}).value;
+      if (userAnswer === questions[i].correctAnswer){
+          numCorrect++;
+          answerContainers[i].style.color = 'green';
+      } else {
+          answerContainers[i].style.color = 'red'
+        }
+    }
+  resultsContainer.innerHTML = numCorrect + ' out of ' + questions.length;
 }
+
+
 
 
 
@@ -228,5 +237,3 @@ resultsContainer.innerHTML = numCorrect + ' out of ' + questions.length;
 
 
 });
-
-
