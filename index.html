@@ -7,24 +7,28 @@
     <title>stop the bleeding, start the breathing</title>
    </head>
    <body>
-     <div id="quizCon">
+     <div style="width:100%;height:100%">
+       <div id="quizCon" style="display:none">
+     </div>
+   </div>
+     <div id="medicCon">
+       <button  id="start">Generate a Wound</button>
+          <div class="wound">
+                   <div id="rightArm"  style="display:none"> Right Arm </div>
+                   <div id="leftArm" style="display:none">  Left Arm  </div>
+                   <div id="rightLeg" style="display:none">  Right leg </div>
+                   <div id="leftLeg" style="display:none"> Left Leg </div>
+                   <div id="body" style="display:none">  Body </div>
+                   <div id="head" style="display:none"> Head  </div>
+          </div>
+       <div>
+       <div id="backdrop"></div>
+       <div>
      </div>
     <center>
-      <button  id="start">Generate a Wound</button>
-         <div class="wound">
-                  <div id="rightArm"  style="display:none"> Right Arm </div>
-                  <div id="leftArm" style="display:none">  Left Arm  </div>
-                  <div id="rightLeg" style="display:none">  Right leg </div>
-                  <div id="leftLeg" style="display:none"> Left Leg </div>
-                  <div id="body" style="display:none">  Body </div>
-                  <div id="head" style="display:none"> Head  </div>
-         </div>
 
-    <div id="medicCon">
-      <div>
-      <div id="backdrop"></div>
-      <div>
-    </div>
+
+
 
       </center>
     <script defer src="src/index.js"></script>
