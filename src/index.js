@@ -1,6 +1,7 @@
 let quizContainer
 let resultsContainer
 let submitAnswersButton
+let nextWoundButton
 let bodyPic
 let injury
 let person
@@ -40,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function woundGen(){
     if (person.wounds.length <= 0) {
-      window.alert(`You answered ${correctResponses.sum} out of ${totalQuestions.sum} correct.`)
+      window.alert(`You answered ${correctResponses.reduce((a, b) => a + b, 0)} out of ${totalQuestions.reduce((a, b) => a + b, 0)} correct.`)
       window.location.reload();
     }
     else {
@@ -92,29 +93,28 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  function setWoundPic(woundPic){
-  bodyPic = document.querySelector("#backdrop")
 
+  function setWoundPic(woundPic){
+
+  bodyPic = document.querySelector("#backdrop")
     bodyPic.innerHTML = `
       <img src=${woundPic} style="
       height: 500px;
-      position: absolute;
-      right: 40%;
     "</img>
     `
   }
 
-  
 
   function displayWound(wound){
     injury.style.display = "block"
     woundDisplay = document.createElement('div')
     const outerDiv = document.createElement('div')
     woundDisplay.appendChild(outerDiv)
-    
+
     const bodyPartDiv = document.createElement('div')
     bodyPartDiv.id = `bodypart${injury.id}`
-    bodyPartDiv.innerText = wound.name
+    bodyPartDiv.innerText = `${wound.name}
+    ${wound.description}`
     const br1 = document.createElement('br')
     const br2 = document.createElement('br')
     const quizCreate = document.createElement('button')
@@ -124,10 +124,9 @@ document.addEventListener('DOMContentLoaded', () => {
     bodyPartDiv.appendChild(quizCreate)
 
     woundDisplay.appendChild(bodyPartDiv)
-  
+
     injury.appendChild(woundDisplay)
-  
-    
+
     quizCreate.addEventListener('click', () =>{
     quizCreate.style="display:none"
       setPageWithQuiz()
@@ -135,7 +134,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   }
 
-  
 
   function setPageWithQuiz(){
     moveBody()
@@ -152,13 +150,16 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function moveBody(){
-    bodyPic.children[0].style.right = "10%"
+    bodyPic.children[0].style = "position: fixed;height: 500px;top:55px;right:50px;z-index:500000"
   }
+
+
 
   function moveInjury(){
-    injury.style = "position:absolute;right: 35%;height: 125px; width: 125px;"
+    injury.querySelector(`#bodypart${injury.id}`).style = "top:2%;width:200px;right:383px;z-index:10040;"
 
   }
+
 
 
 
@@ -167,6 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
     quizCon.style.display = ""
     injury.style.display = ""
     resultsContainer = document.getElementById('results')
+    nextWoundButton = ""
     submitAnswersButton = document.getElementById('submitAnswers')
 
     generateQuizQuestions()
@@ -260,22 +262,22 @@ document.addEventListener('DOMContentLoaded', () => {
     correctResponses.push(numCorrect);
     totalQuestions.push(questions.length);
 
-    // debugger
+    
     nextQuiz();
   }
 
   function nextQuiz() {
-    // let button = document.querySelector('#submitAnswers')
 
-    submitAnswersButton.id = "newButton"
-    submitAnswersButton.innerHTML = ""
-    button = document.getElementById('newButton')
-    button.innerText = 'Treat another wound'
+    quizCon.removeChild(submitAnswersButton)
 
-    button.addEventListener('click', (e) => {
+    const newButton = document.createElement('button')
+    newButton.innerText = 'Treat another wound'
+    
+    quizCon.appendChild(newButton)
+
+    newButton.addEventListener('click', (e) => {
       hidePreviousQuiz()
-
-      woundGen()
+       woundGen()
 
     })
 
