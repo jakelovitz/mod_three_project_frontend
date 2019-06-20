@@ -11,6 +11,9 @@ const defaultPic = "https://i.imgur.com/USOQOCa.png"
 const medicCon = document.getElementById("medicCon")
 const quizCon = document.querySelector("#quizCon")
 
+const correctAnswerCount = [];
+const totalQuestionCount = [];
+
 
 let personsArr = []
 
@@ -32,7 +35,7 @@ document.querySelector("#start").addEventListener("click", e => {
 
 function woundGen(){
   person = personsArr[Math.floor(Math.random() * personsArr.length)]
-  wound  = person.wounds[Math.floor(Math.random() * person.wounds.length)]
+  wound  = person.wounds.pop([Math.floor(Math.random() * person.wounds.length)])
   treatments = wound.treatments
   woundPic =  wound.img_url
   console.log(person)
@@ -101,8 +104,8 @@ function displayWound(wound, injury){
     `
   medicCon.appendChild(woundDisplay)
   document.querySelector("#createQuizsubmit").onclick = function(){
-  document.querySelector("#createQuizsubmit").style="display:none"
-  setPageWithQuiz()
+    document.querySelector("#createQuizsubmit").style="display:none"
+    setPageWithQuiz()
   }
 }
 
@@ -198,6 +201,7 @@ let answers;
 
 function showResults (questions) {
   let answerContainers = quizContainer.querySelectorAll('.answers');
+  let button = document.querySelector('#submitAnswers')
   let userAnswer = '';
   let numCorrect = 0
     for (var i = 0; i < questions.length; i++) {
@@ -210,6 +214,24 @@ function showResults (questions) {
         }
     }
   resultsContainer.innerHTML = numCorrect + ' out of ' + questions.length;
+  button.innerText = 'Treat another wound'
+  // button.id = 'treatNewWound'
+  nextQuiz();
+}
+
+function nextQuiz() {
+  let button = document.querySelector('#submitAnswers')
+  // button.innerText = 'Treat another wound'
+  // button.id = 'treatNewWound'
+  // button = document.querySelector('#treatNewWound')
+  let newWoundElement = person.wounds.indexOf(wound) + 1
+  wound = person.wounds[newWoundElement]
+
+  button.addEventListener('click', (e) => {
+    console.log('new button clicked')
+    createQuiz()
+  })
+  
 }
 
 
