@@ -3,6 +3,8 @@ let resultsContainer
 let submitAnswersButton
 let bodyPic
 let injury
+let person
+
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log("%c Easy Day",
@@ -12,8 +14,6 @@ const dataURL = "http://localhost:3000/api/v1/people"
 const defaultPic = "https://i.imgur.com/USOQOCa.png"
 const medicCon = document.getElementById("medicCon")
 const quizCon = document.querySelector("#quizCon")
-
-
 let personsArr = []
 
 
@@ -24,59 +24,77 @@ function getWounds(){
     .then(response => response.json())
     .then(data => data.forEach(x => personsArr.push(x)))
     console.log(personsArr)
+
 }
 
 document.querySelector("#start").addEventListener("click", e => {
   e.target.style.display = "none"
-
+  person = personsArr[Math.floor(Math.random() * personsArr.length)]
   woundGen() // this is what triggers the actual quiz bit
 })
 
+
+
 function woundGen(){
-  person = personsArr[Math.floor(Math.random() * personsArr.length)]
-  wound  = person.wounds[Math.floor(Math.random() * person.wounds.length)]
-  treatments = wound.treatments
-  woundPic =  wound.img_url
-  console.log(person)
-  console.log(wound)
-  console.log(treatments)
-  console.log(woundPic)
-  console.log(wound.location)
+    if (person.wounds.length <= 0) {
+      showFinalResults()
+    }
+    else {
+
+    hidePreviousQuiz()
+     newWound = person.wounds.splice(Math.floor(Math.random() * person.wounds.length), 1)
+     wound = newWound[0]
+     treatments = wound.treatments
+     woundPic =  wound.img_url
+    console.log(person)
+    console.log(wound)
+    console.log(treatments)
+    console.log(woundPic)
+    console.log(wound.location)
 
 
   switch(wound.location){
     case "left arm":
-        injury = document.querySelector("#leftArm")
-        displayWound(wound, injury)
-        setWoundPic(woundPic)
-        break;
-      case "right arm":
-        injury = document.querySelector("#rightArm")
-        displayWound(wound, injury)
-        setWoundPic(woundPic)
-        break;
-      case "left leg":
-        injury = document.querySelector("#leftLeg")
-        displayWound(wound, injury)
-        setWoundPic(woundPic)
-        break;
-      case "right leg":
-        injury = document.querySelector("#rightLeg")
-        displayWound(wound, injury)
-        setWoundPic(woundPic)
-        break;
-      case "body":
-        injury = document.querySelector("#body")
-        displayWound(wound, injury)
-        setWoundPic(woundPic)
-        break;
-      case "head":
-        injury = document.querySelector("#head")
-        displayWound(wound)
-        setWoundPic(woundPic)
-        break;
+      injury = document.querySelector("#leftArm")
+      displayWound(wound, injury)
+      setWoundPic(woundPic)
+      break;
+    case "right arm":
+      injury = document.querySelector("#rightArm")
+      displayWound(wound, injury)
+      setWoundPic(woundPic)
+      break;
+    case "left leg":
+      injury = document.querySelector("#leftLeg")
+      displayWound(wound, injury)
+      setWoundPic(woundPic)
+      break;
+    case "right leg":
+      injury = document.querySelector("#rightLeg")
+      displayWound(wound, injury)
+      setWoundPic(woundPic)
+      break;
+    case "body":
+      injury = document.querySelector("#body")
+      displayWound(wound, injury)
+      setWoundPic(woundPic)
+      break;
+    case "head":
+      injury = document.querySelector("#head")
+      displayWound(wound)
+      setWoundPic(woundPic)
+      break;
     }
+  }
 }
+
+function hidePreviousQuiz(){
+  if (injury && quizCon) {
+  injury.style.display = "none"
+  quizCon.style.display = "none"
+}
+}
+
 
 function setWoundPic(woundPic){
 bodyPic = document.querySelector("#backdrop")
@@ -134,18 +152,26 @@ function moveBody(){
 function moveInjury(){
   injury.style = "position:absolute;right: 35%;height: 125px; width: 125px;"
 
-
-
 }
 
 
 
 function createQuiz(){
   quizContainer = document.getElementById('quiz')
+  quizCon.style.display = ""
+  injury.style.display = ""
   resultsContainer = document.getElementById('results')
   submitAnswersButton = document.getElementById('submitAnswers')
+
   generateQuizQuestions()
 }
+
+
+
+
+
+
+
 
 function generateQuizQuestions(){
   let questions = dynamicGenerateQuestions(treatments);
@@ -227,14 +253,32 @@ function showResults (questions) {
         }
     }
   resultsContainer.innerHTML = numCorrect + ' out of ' + questions.length;
+  nextQuiz();
 }
 
 
 
+function showFinalResults(){
+debugger
+  console.log("this function will show a final test page")
+}
 
 
 
+function nextQuiz() {
+  let button = document.querySelector('#submitAnswers')
+  // button.innerText = 'Treat another wound'
+  // button.id = 'treatNewWound'
+  // button = document.querySelector('#treatNewWound')
+  let newWoundElement = person.wounds.indexOf(wound) + 1
+  wound = person.wounds[newWoundElement]
 
+  button.addEventListener('click', (e) => {
+    console.log('new button clicked')
+    woundGen()
+  })
+
+}
 
 
 
