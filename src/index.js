@@ -5,7 +5,7 @@ let bodyPic
 let injury
 let person
 let genButton
-let counter = 0;
+let counter = 0
 
 let correctResponses = [];
 let totalQuestions = [];
@@ -27,8 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch(dataURL)
       .then(response => response.json())
       .then(data => data.forEach(x => personsArr.push(x)))
-      console.log(personsArr)
-
   }
 
   document.querySelector("#start").addEventListener("click", e => {
@@ -43,15 +41,13 @@ document.addEventListener('DOMContentLoaded', () => {
   function woundGen(){
     if (person.wounds.length <= 0) {
       window.alert(`You answered ${correctResponses.sum} out of ${totalQuestions.sum} correct.`)
+      window.location.reload();
     }
     else {
     newWound = person.wounds.splice(Math.floor(Math.random() * person.wounds.length), 1)
     wound = newWound[0]
     treatments = wound.treatments
     woundPic =  wound.img_url
-    
-    console.log('woundGen 53:', wound.location)
-
 
     switch(wound.location){
       case "left arm":
@@ -179,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function generateQuizQuestions(){
     let questions = dynamicGenerateQuestions(treatments);
     showQuestions(questions);
-      submitAnswersButton.onclick = function(){
+    submitAnswersButton.onclick = function(){
       showResults(questions);
     }
   }
@@ -246,35 +242,38 @@ document.addEventListener('DOMContentLoaded', () => {
     let answerContainers = quizContainer.querySelectorAll('.answers');
     let userAnswer = '';
     let numCorrect = 0
-      for (var i = 0; i < questions.length; i++) {
+    counter++
+
+
+    for (var i = 0; i < questions.length; i++) {
       userAnswer = (answerContainers[i].querySelector('input[name=question'+i+']:checked')||{}).value;
-        if (userAnswer === questions[i].correctAnswer){
-            numCorrect++;
-            answerContainers[i].style.color = 'green';
-        } else {
-            answerContainers[i].style.color = 'red'
-          }
+      if (userAnswer === questions[i].correctAnswer){
+        numCorrect++;
+        answerContainers[i].style.color = 'green';
+      } else {
+        answerContainers[i].style.color = 'red'
       }
+    }
+
     resultsContainer.innerHTML = numCorrect + ' out of ' + questions.length;
+
     correctResponses.push(numCorrect);
     totalQuestions.push(questions.length);
+
+    // debugger
     nextQuiz();
   }
 
-  function showFinalResults(){
-    console.log("this function will show a final test page")
-  }
-
   function nextQuiz() {
-    let button = document.querySelector('#submitAnswers')
+    // let button = document.querySelector('#submitAnswers')
+
+    submitAnswersButton.id = "newButton"
+    submitAnswersButton.innerHTML = ""
+    button = document.getElementById('newButton')
     button.innerText = 'Treat another wound'
-  
-    let newWoundElement = person.wounds.indexOf(wound) + 1
-    wound = person.wounds[newWoundElement]
 
     button.addEventListener('click', (e) => {
       hidePreviousQuiz()
-      counter += 1;
 
       woundGen()
 
