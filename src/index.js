@@ -1,11 +1,12 @@
 let quizContainer
 let resultsContainer
 let submitAnswersButton
+let nextWoundButton
 let bodyPic
 let injury
 let person
 let genButton
-let counter = 0;
+let counter = 0
 
 let correctResponses = [];
 let totalQuestions = [];
@@ -27,8 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch(dataURL)
       .then(response => response.json())
       .then(data => data.forEach(x => personsArr.push(x)))
-      console.log(personsArr)
-
   }
 
   document.querySelector("#start").addEventListener("click", e => {
@@ -42,15 +41,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function woundGen(){
     if (person.wounds.length <= 0) {
-      window.alert(`You answered ${correctResponses.sum} out of ${totalQuestions.sum} correct.`)
+      window.alert(`You answered ${correctResponses.reduce((a, b) => a + b, 0)} out of ${totalQuestions.reduce((a, b) => a + b, 0)} correct.`)
+      window.location.reload();
     }
     else {
     newWound = person.wounds.splice(Math.floor(Math.random() * person.wounds.length), 1)
     wound = newWound[0]
     treatments = wound.treatments
     woundPic =  wound.img_url
-
-
 
     switch(wound.location){
       case "left arm":
@@ -116,7 +114,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const bodyPartDiv = document.createElement('div')
     bodyPartDiv.id = `bodypart${injury.id}`
     bodyPartDiv.innerText = `${wound.name}
-     --------------------
     ${wound.description}`
     const br1 = document.createElement('br')
     const br2 = document.createElement('br')
@@ -171,6 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
     quizCon.style.display = ""
     injury.style.display = ""
     resultsContainer = document.getElementById('results')
+    nextWoundButton = ""
     submitAnswersButton = document.getElementById('submitAnswers')
 
     generateQuizQuestions()
@@ -179,7 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function generateQuizQuestions(){
     let questions = dynamicGenerateQuestions(treatments);
     showQuestions(questions);
-      submitAnswersButton.onclick = function(){
+    submitAnswersButton.onclick = function(){
       showResults(questions);
     }
   }
@@ -246,37 +244,40 @@ document.addEventListener('DOMContentLoaded', () => {
     let answerContainers = quizContainer.querySelectorAll('.answers');
     let userAnswer = '';
     let numCorrect = 0
-      for (var i = 0; i < questions.length; i++) {
+    counter++
+
+
+    for (var i = 0; i < questions.length; i++) {
       userAnswer = (answerContainers[i].querySelector('input[name=question'+i+']:checked')||{}).value;
-        if (userAnswer === questions[i].correctAnswer){
-            numCorrect++;
-            answerContainers[i].style.color = 'green';
-        } else {
-            answerContainers[i].style.color = 'red'
-          }
+      if (userAnswer === questions[i].correctAnswer){
+        numCorrect++;
+        answerContainers[i].style.color = 'green';
+      } else {
+        answerContainers[i].style.color = 'red'
       }
+    }
+
     resultsContainer.innerHTML = numCorrect + ' out of ' + questions.length;
+
     correctResponses.push(numCorrect);
     totalQuestions.push(questions.length);
+
+    
     nextQuiz();
   }
 
-  function showFinalResults(){
-    console.log("this function will show a final test page")
-  }
-
   function nextQuiz() {
-    let button = document.querySelector('#submitAnswers')
-    button.innerText = 'Treat another wound'
 
-    let newWoundElement = person.wounds.indexOf(wound) + 1
-    wound = person.wounds[newWoundElement]
+    quizCon.removeChild(submitAnswersButton)
 
-    button.addEventListener('click', (e) => {
+    const newButton = document.createElement('button')
+    newButton.innerText = 'Treat another wound'
+    
+    quizCon.appendChild(newButton)
+
+    newButton.addEventListener('click', (e) => {
       hidePreviousQuiz()
-      counter += 1;
-
-      woundGen()
+       woundGen()
 
     })
 
