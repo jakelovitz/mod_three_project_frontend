@@ -1,6 +1,8 @@
 let quizContainer
 let resultsContainer
 let submitAnswersButton
+let bodyPic
+let injury
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log("%c Easy Day",
@@ -73,21 +75,26 @@ function woundGen(){
         break;
       case "head":
         injury = document.querySelector("#head")
-        displayWound(wound, injury)
+        displayWound(wound)
         setWoundPic(woundPic)
         break;
     }
 }
 
 function setWoundPic(woundPic){
-document.querySelector("#backdrop").innerHTML =
-  `
-    <img class="center" src=${woundPic} style="height: 500px"> </img>
+bodyPic = document.querySelector("#backdrop")
+
+   bodyPic.innerHTML =`
+    <img src=${woundPic} style="
+    height: 500px;
+    position: absolute;
+    right: 40%;
+"</img>
   `
 }
 
 
-function displayWound(wound, injury){
+function displayWound(wound){
   injury.style.display = "block"
   woundDisplay = document.createElement('div')
   woundDisplay.innerHTML =
@@ -102,7 +109,7 @@ function displayWound(wound, injury){
       </div>
     </div>
     `
-  medicCon.appendChild(woundDisplay)
+  injury.appendChild(woundDisplay)
   document.querySelector("#createQuizsubmit").onclick = function(){
     document.querySelector("#createQuizsubmit").style="display:none"
     setPageWithQuiz()
@@ -111,6 +118,8 @@ function displayWound(wound, injury){
 
 function setPageWithQuiz(){
   moveBody()
+  moveInjury()
+  quizCon.style="display:block;width:50%;height:50%"
   quizCon.innerHTML =
   `
   <div id="quiz"></div>
@@ -122,8 +131,16 @@ function setPageWithQuiz(){
 }
 
 function moveBody(){
-  console.log("animation to do tomorrow")
+  bodyPic.children[0].style.right = "10%"
 }
+
+function moveInjury(){
+  injury.style = "position:absolute;right: 35%;height: 125px; width: 125px;"
+
+
+
+}
+
 
 
 function createQuiz(){
