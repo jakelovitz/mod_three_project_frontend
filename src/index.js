@@ -49,6 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     treatments = wound.treatments
     woundPic =  wound.img_url
 
+
     switch(wound.location){
       case "left arm":
         injury = document.querySelector("#leftArm")
@@ -92,29 +93,29 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  function setWoundPic(woundPic){
-  bodyPic = document.querySelector("#backdrop")
 
+  function setWoundPic(woundPic){
+
+  bodyPic = document.querySelector("#backdrop")
     bodyPic.innerHTML = `
       <img src=${woundPic} style="
       height: 500px;
-      position: absolute;
-      right: 40%;
     "</img>
     `
   }
 
-  
 
   function displayWound(wound){
     injury.style.display = "block"
     woundDisplay = document.createElement('div')
     const outerDiv = document.createElement('div')
     woundDisplay.appendChild(outerDiv)
-    
+
     const bodyPartDiv = document.createElement('div')
     bodyPartDiv.id = `bodypart${injury.id}`
-    bodyPartDiv.innerText = wound.name
+    bodyPartDiv.innerText = `${wound.name}
+     --------------------
+    ${wound.description}`
     const br1 = document.createElement('br')
     const br2 = document.createElement('br')
     const quizCreate = document.createElement('button')
@@ -124,10 +125,9 @@ document.addEventListener('DOMContentLoaded', () => {
     bodyPartDiv.appendChild(quizCreate)
 
     woundDisplay.appendChild(bodyPartDiv)
-  
+
     injury.appendChild(woundDisplay)
-  
-    
+
     quizCreate.addEventListener('click', () =>{
     quizCreate.style="display:none"
       setPageWithQuiz()
@@ -135,7 +135,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   }
 
-  
 
   function setPageWithQuiz(){
     moveBody()
@@ -152,13 +151,16 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function moveBody(){
-    bodyPic.children[0].style.right = "10%"
+    bodyPic.children[0].style = "position: fixed;height: 500px;top:55px;right:50px;z-index:500000"
   }
+
+
 
   function moveInjury(){
-    injury.style = "position:absolute;right: 35%;height: 125px; width: 125px;"
+    injury.querySelector(`#bodypart${injury.id}`).style = "top:2%;width:200px;right:383px;z-index:10040;"
 
   }
+
 
 
 
