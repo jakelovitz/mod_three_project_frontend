@@ -42,19 +42,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function woundGen(){
     if (person.wounds.length <= 0) {
-      window.alert('message')
+      window.alert(`You answered ${correctResponses.sum} out of ${totalQuestions.sum} correct.`)
     }
     else {
-    // debugger
-    // hidePreviousQuiz()
     newWound = person.wounds.splice(Math.floor(Math.random() * person.wounds.length), 1)
     wound = newWound[0]
     treatments = wound.treatments
     woundPic =  wound.img_url
-    // console.log(person)
-    // console.log(wound)
-    // console.log(treatments)
-    // console.log(woundPic)
+    
     console.log('woundGen 53:', wound.location)
 
 
@@ -133,27 +128,11 @@ document.addEventListener('DOMContentLoaded', () => {
     bodyPartDiv.appendChild(quizCreate)
 
     woundDisplay.appendChild(bodyPartDiv)
-    // woundDisplay.innerHTML =
-    //   `
-    //   <div>
-    //     <div id="bodypart${injury.id}">
-    //       ${wound.name}
-    //       <br>
-    //       <br>
-    //       ${wound.description}
-    //       <button id="createQuizSubmit">Treat wound</button>
-    //     </div>
-    //   </div>
-    //   `
+  
     injury.appendChild(woundDisplay)
-    console.log('displayWound 128:', wound.location)
-    // debugger
-    // let quizCreate = document.getElementById("createQuizSubmit")
-    console.log(person.wounds)
+  
     
     quizCreate.addEventListener('click', () =>{
-      console.log(person.wounds)
-    //   // debugger
     quizCreate.style="display:none"
       setPageWithQuiz()
     })
@@ -171,7 +150,6 @@ function moveInjury(){
 }  
 
   function setPageWithQuiz(){
-    // debugger
     moveBody()
     moveInjury()
     quizCon.style="display:block;width:50%;height:50%"
@@ -298,19 +276,15 @@ function moveInjury(){
   function nextQuiz() {
     let button = document.querySelector('#submitAnswers')
     button.innerText = 'Treat another wound'
-    // button.innerText = 'Treat another wound'
-    // button.id = 'treatNewWound'
-    // button = document.querySelector('#treatNewWound')
+  
     let newWoundElement = person.wounds.indexOf(wound) + 1
     wound = person.wounds[newWoundElement]
 
     button.addEventListener('click', (e) => {
-      // console.log('before wound gen')
       hidePreviousQuiz()
       counter += 1;
 
       woundGen()
-      // console.log('after wound gen')
 
     })
 
