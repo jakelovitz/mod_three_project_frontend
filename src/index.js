@@ -35,12 +35,20 @@ document.addEventListener('DOMContentLoaded', () => {
     genButton = e.target
     e.target.style.display = "none"
     person = personsArr[Math.floor(Math.random() * personsArr.length)]
-    woundGen() // this is what triggers the actual quiz bit
+    setBackRound()
+    woundGen()
   })
+
+
+  function setBackRound(){
+    document.body.style.backgroundImage = 'url(./assets/img/animationBlood.gif)'
+    // 'url(https://i.pinimg.com/originals/87/6f/8e/876f8e0336959d62337605578fdd4690.gif)'
+  }
 
 
 
   function woundGen(){
+
     if (person.wounds.length <= 0) {
       window.alert(`You answered ${correctResponses.reduce((a, b) => a + b, 0)} out of ${totalQuestions.reduce((a, b) => a + b, 0)} correct.`)
       window.location.reload();
@@ -88,9 +96,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function hidePreviousQuiz(){
     if (injury && quizCon) {
-    injury.style.display = "none"
-    quizCon.style.display = "none"
-    pdfMed.style.display = "none"
+      injury.style.display = "none"
+      quizCon.style.display = "none"
+      pdfMed.style.display = "none"
 
     }
   }
@@ -108,7 +116,6 @@ document.addEventListener('DOMContentLoaded', () => {
     "</img>
     `
   }
-
 
 
 
