@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const defaultPic = "https://i.imgur.com/USOQOCa.png"
   const medicCon = document.getElementById("medicCon")
   const quizCon = document.querySelector("#quizCon")
+  const pdfMed = document.querySelector("#pdfMed")
   let personsArr = []
 
 
@@ -51,32 +52,32 @@ document.addEventListener('DOMContentLoaded', () => {
     woundPic =  wound.img_url
 
     switch(wound.location){
-      case "left arm":
+      case "Left Arm":
         injury = document.querySelector("#leftArm")
         displayWound(wound, injury)
         setWoundPic(woundPic)
         break;
-      case "right arm":
+      case "Right Arm":
         injury = document.querySelector("#rightArm")
         displayWound(wound, injury)
         setWoundPic(woundPic)
         break;
-      case "left leg":
+      case "Left Leg":
         injury = document.querySelector("#leftLeg")
         displayWound(wound, injury)
         setWoundPic(woundPic)
         break;
-      case "right leg":
+      case "Right Leg":
         injury = document.querySelector("#rightLeg")
         displayWound(wound, injury)
         setWoundPic(woundPic)
         break;
-      case "body":
+      case "Body":
         injury = document.querySelector("#body")
         displayWound(wound, injury)
         setWoundPic(woundPic)
         break;
-      case "head":
+      case "Head":
         injury = document.querySelector("#head")
         displayWound(wound)
         setWoundPic(woundPic)
@@ -100,9 +101,13 @@ document.addEventListener('DOMContentLoaded', () => {
     bodyPic.innerHTML = `
       <img src=${woundPic} style="
       height: 500px;
+      position: fixed;
+     right: 500px;
     "</img>
     `
   }
+
+
 
 
   function displayWound(wound){
@@ -113,7 +118,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const bodyPartDiv = document.createElement('div')
     bodyPartDiv.id = `bodypart${injury.id}`
-    bodyPartDiv.innerText = `${wound.name}
+    bodyPartDiv.innerText = `
+    ${person.name}, ${person.occupation}, suffered a ${wound.name} on the ${wound.location}
+    ----------------------------------------
     ${wound.description}`
     const br1 = document.createElement('br')
     const br2 = document.createElement('br')
@@ -138,6 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function setPageWithQuiz(){
     moveBody()
     moveInjury()
+    pdfMed.style.display = "block"
     quizCon.style="display:block;width:50%;height:50%"
     quizCon.innerHTML =
     `
@@ -209,7 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
   answers = getAnswers(treatments)
     for (var i = 0; i < treatments.length; i++) {
       question =  {
-        question: `What is Step ${i + 1}?`,
+        question: `----What is Step ${i + 1}?----`,
         answers,
         correctAnswer: `${String.fromCharCode(97 + (treatments[i].order) - 1)}`
       }
@@ -262,7 +270,7 @@ document.addEventListener('DOMContentLoaded', () => {
     correctResponses.push(numCorrect);
     totalQuestions.push(questions.length);
 
-    
+
     nextQuiz();
   }
 
@@ -272,7 +280,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const newButton = document.createElement('button')
     newButton.innerText = 'Treat another wound'
-    
+
     quizCon.appendChild(newButton)
 
     newButton.addEventListener('click', (e) => {
@@ -282,7 +290,6 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
   }
-
 
 
 
