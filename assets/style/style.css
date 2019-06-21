@@ -1,5 +1,5 @@
 #bodypartleftArm {
-  position: absolute;
+  position: fixed;
   bottom: 50%;
   right: 15%;
   height: 275px;
@@ -13,7 +13,7 @@
 }
 
 #bodypartrightArm {
-  position: absolute;
+  position: fixed;
   bottom: 50%;
   width: 200px;
   height: 275px;
@@ -27,7 +27,7 @@
 }
 
 #bodypartleftLeg {
-  position: absolute;
+  position: fixed;
   bottom: 30%;
   right: 20%;
   width: 200px;
@@ -41,7 +41,7 @@
 }
 
 #bodypartrightLeg {
-  position: absolute;
+  position: fixed;
   bottom: 30%;
   height: 275px;
   width: 200px;
@@ -55,7 +55,7 @@
 }
 
 #bodypartbody {
-  position: absolute;
+  position: fixed;
   width: 200px;
   top: 2%;
   bottom: 70%;
@@ -71,7 +71,7 @@
 }
 
 #bodyparthead {
-  position: absolute;
+  position: fixed;
   width: 200px;
   height: 275px;
   top: 2%;
@@ -129,7 +129,7 @@ body {
   background-repeat: no-repeat;
   background-size: 100%, 100%;
    font-family:Courier;
-   color:white;
+   color:yellow;
 
 }
 
@@ -157,6 +157,13 @@ button:active {
 }
 
 
+#startImg {
+  position: relative;
+
+  height: 475px;
+  right: -515px;
+}
+
 
 #start {
 	-moz-box-shadow: -3px -8px 50px 50px #000000;
@@ -179,7 +186,63 @@ button:active {
 	padding:32px 76px;
 	text-decoration:none;
 	text-shadow:7px 5px 14px #4c95d4;
+  -webkit-animation: under-pressure 0.5s linear infinite both;
+    animation: under-pressure 0.3s linear infinite both;
 }
+
+@-webkit-keyframes under-pressure {
+  0% {
+    -webkit-transform: translate(0);
+            transform: translate(0);
+  }
+  20% {
+    -webkit-transform: translate(-2px, 2px);
+            transform: translate(-2px, 2px);
+  }
+  40% {
+    -webkit-transform: translate(-2px, -2px);
+            transform: translate(-2px, -2px);
+  }
+  60% {
+    -webkit-transform: translate(2px, 2px);
+            transform: translate(2px, 2px);
+  }
+  80% {
+    -webkit-transform: translate(2px, -2px);
+            transform: translate(2px, -2px);
+  }
+  100% {
+    -webkit-transform: translate(0);
+            transform: translate(0);
+  }
+}
+@keyframes under-pressure {
+  0% {
+    -webkit-transform: translate(0);
+            transform: translate(0);
+  }
+  20% {
+    -webkit-transform: translate(-2px, 2px);
+            transform: translate(-2px, 2px);
+  }
+  40% {
+    -webkit-transform: translate(-2px, -2px);
+            transform: translate(-2px, -2px);
+  }
+  60% {
+    -webkit-transform: translate(2px, 2px);
+            transform: translate(2px, 2px);
+  }
+  80% {
+    -webkit-transform: translate(2px, -2px);
+            transform: translate(2px, -2px);
+  }
+  100% {
+    -webkit-transform: translate(0);
+            transform: translate(0);
+  }
+}
+
 #start:hover {
 	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #bd8282), color-stop(1, #ad1111));
 	background:-moz-linear-gradient(top, #bd8282 5%, #ad1111 100%);
