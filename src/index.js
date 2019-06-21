@@ -90,6 +90,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (injury && quizCon) {
     injury.style.display = "none"
     quizCon.style.display = "none"
+    pdfMed.style.display = "none"
+
     }
   }
 
