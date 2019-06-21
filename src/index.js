@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const medicCon = document.getElementById("medicCon")
   const quizCon = document.querySelector("#quizCon")
   const pdfMed = document.querySelector("#pdfMed")
-  const saraScream = new Audio("./assets/sound/sara_scream.mp3")
+  const saraScream = new Audio("./assets/sound/sarah_scream.mp3")
   const samScream = new Audio("./assets/sound/sam_scream.mp3")
 
 
