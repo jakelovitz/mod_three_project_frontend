@@ -142,8 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const bodyPartDiv = document.createElement('div')
     bodyPartDiv.id = `bodypart${injury.id}`
-    bodyPartDiv.innerText = `
-    ${person.name}, ${person.occupation}, suffered a ${wound.name} on the ${wound.location}
+    bodyPartDiv.innerText = `${person.name}, ${person.occupation}, suffered a ${wound.name} on the ${wound.location}
     ----------------------------------------
     ${wound.description}`
     const br1 = document.createElement('br')
