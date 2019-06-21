@@ -20,6 +20,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const medicCon = document.getElementById("medicCon")
   const quizCon = document.querySelector("#quizCon")
   const pdfMed = document.querySelector("#pdfMed")
+  const saraScream = new Audio("./assets/sound/sara_scream.mp3")
+  const samScream = new Audio("./assets/sound/sam_scream.mp3")
+
+
   let personsArr = []
 
 
@@ -58,6 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
     wound = newWound[0]
     treatments = wound.treatments
     woundPic =  wound.img_url
+    soundEFX(person)
 
     switch(wound.location){
       case "Left Arm":
@@ -102,6 +107,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
   }
+
+  function soundEFX(person){
+    if (person.name === 'Sarah'){
+        saraScream.play()
+      }
+      else{
+        samScream.play()
+      }
+  }
+
 
 
 
