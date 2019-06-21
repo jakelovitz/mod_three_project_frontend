@@ -267,8 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
       );
       }
       output.push(
-      '<div class="question">' + questions[i].question + '</div>'
-      + '<div class="answers">' + answers.join('') + '</div>'
+      '<div class="question">' + questions[i].question + '</div>' + `&nbsp` + '<div class="answers">' + answers.join('') + '</div>' + `&nbsp` 
       )
       quizContainer.innerHTML = output.join('')
     }
