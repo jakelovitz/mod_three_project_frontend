@@ -44,9 +44,11 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
 
+
   function setBackRound(){
     document.body.style.backgroundImage = 'url(./assets/img/animationBlood.gif)'
     // 'url(https://i.pinimg.com/originals/87/6f/8e/876f8e0336959d62337605578fdd4690.gif)'
+    document.querySelector("#startImg").style.display = "none"
   }
 
 
@@ -126,8 +128,9 @@ document.addEventListener('DOMContentLoaded', () => {
     bodyPic.innerHTML = `
       <img src=${woundPic} style="
       height: 500px;
+      top: 75px;
       position: fixed;
-     right: 500px;
+     right: 550px;
     "</img>
     `
   }
